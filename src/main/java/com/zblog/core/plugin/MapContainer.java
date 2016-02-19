@@ -52,12 +52,12 @@ public class MapContainer extends LinkedHashMap<String, Object>{
 
   /**
    * 缺少即加入,和ConcurrentHashMap中的putIfAbsent一致
-   * 
+   *
    * @param key
    * @param value
    * @return
    */
-  public <T> T putIfAbsent(String key, T value){
+  public <T> T putIfAbsent(String key, T value,boolean flag){
     T result = value;
     if(containsKey(key)){
       result = get(key);

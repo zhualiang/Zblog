@@ -10,3 +10,6 @@ target/
 .project
 .classpath
 .tern-project
+#idea ignore
+.idea/
+zblog.iml

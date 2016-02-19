@@ -35,7 +35,7 @@ public class CategoryManager{
   public void remove(String cname){
     Category category = categoryService.loadByName(cname);
     List<Category> list = categoryService.loadChildren(category);
-    List<String> all = new ArrayList<>(list.size() + 1);
+    List<String> all = new ArrayList<String>(list.size() + 1);
     all.add(category.getId());
     for(Category temp : list){
       all.add(temp.getId());
@@ -58,7 +58,7 @@ public class CategoryManager{
       int level = current.getAsInteger("level");
       current.put("level", level - 1);
       MapContainer parent = getLastParentByLevel(root, level - 1);
-      parent.putIfAbsent("nodes", new ArrayList<MapContainer>()).add(current);
+      parent.putIfAbsent("nodes", new ArrayList<MapContainer>(),true).add(current);
     }
 
     return root.get("nodes");
@@ -67,7 +67,7 @@ public class CategoryManager{
   private static MapContainer getLastParentByLevel(MapContainer mc, int currentlevel){
     MapContainer current = mc;
     for(int i = 1; i < currentlevel; i++){
-      List<MapContainer> children = current.putIfAbsent("nodes", new ArrayList<MapContainer>());
+      List<MapContainer> children = current.putIfAbsent("nodes", new ArrayList<MapContainer>(),true);
       current = children.get(children.size() - 1);
     }
 
