@@ -5,7 +5,7 @@ public class LoginForm{
   private String password;
   private boolean remeber;
   /* 防止后台暴力破解的字段 */
-  private String guard;
+  private String guard="no";
   private String redirectURL;
 
   public String getUsername(){

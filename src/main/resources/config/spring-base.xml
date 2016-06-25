@@ -10,7 +10,7 @@
                            http://www.springframework.org/schema/tx 
                            http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
    
-  <context:annotation-config />
+  <context:annotation-config/>
   <import resource="spring-service.xml" />
   <import resource="spring-cache.xml" />
   <import resource="spring-biz.xml" />

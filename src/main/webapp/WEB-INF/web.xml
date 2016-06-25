@@ -28,14 +28,17 @@
   </listener>
   <!-- 系统启动监听器 -->
   <listener>
+    <!--清理框架及cron引起的可能产生的内存泄漏-->
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
   <listener>
+    <!--加载spring root app context-->
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
-  <!-- Servlet规范要求表单数据可用于POST，但没要求PUT和PATCH -->
+  <!-- Servlet规范要求表单数据可用于POST，但没要求PUT -->
   <filter>
+    <!--将PUT、patch请求转化为转化为可以使用request.getParamater()获取的请求-->
     <filter-name>HttpPutFormContentFilter</filter-name>
     <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
     <async-supported>true</async-supported>
@@ -46,6 +49,7 @@
     <async-supported>true</async-supported>
   </filter>
   <filter>
+    <!--文件上传处理-->
     <filter-name>XssFilter</filter-name>
     <filter-class>com.zblog.web.filter.XssFilter</filter-class>
     <async-supported>true</async-supported>
