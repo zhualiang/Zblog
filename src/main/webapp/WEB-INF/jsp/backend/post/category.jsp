@@ -50,7 +50,7 @@
        <input class="form-control" type="text" id="newCategory" style="width: 230px;"  />
      </div>
      <div class="zfooter">
-       <button type="button" class="btn btn-default">取消</button>
+       <button type="button" class="btn btn-default" onclick="zblog.hide('insert-box');">取消</button>
         <button type="button" class="btn btn-primary" onclick="zblog.category.insert();">确定</button>
      </div>
    </div>

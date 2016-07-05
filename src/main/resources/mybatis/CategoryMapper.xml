@@ -25,7 +25,7 @@
          values(#{id},#{name},#{leftv},#{rightv},#{visible},#{createTime})
    </insert>
    <update id="updateInsertLeftv" parameterType="int">
-     update category set leftv=leftv+2 where leftv &gt; #{rightv}
+     update category set leftv=leftv+2 where leftv >= #{rightv}
    </update>
    <update id="updateInsertRightv" parameterType="int">
      update category set rightv=rightv+2 where rightv>=#{rightv}
