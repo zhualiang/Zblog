@@ -2,6 +2,9 @@ package com.zblog.web.backend.controller;
 
 import java.util.Date;
 import java.util.List;
+
+import com.zblog.core.dal.constants.CategoryConstants;
+import com.zblog.core.util.StringUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +53,7 @@ public class CategoryController{
   private void parseTreeDisplay(List<MapContainer> list)
   {
     for(MapContainer temp : list){
-      temp.put("text", temp.remove("name"));
+      temp.put("text", StringUtils.getLastDivisionStr((String)temp.remove("name"),CategoryConstants.NAME_DELIMITER));
       temp.put("icon","glyphicon glyphicon-star");
       List<MapContainer> nodes = temp.get("nodes");
       if(CollectionUtils.isEmpty(nodes))
@@ -70,14 +73,33 @@ public class CategoryController{
     category.setId(IdGenerator.uuid19());
     category.setCreateTime(new Date());
     category.setLastUpdate(category.getCreateTime());
+    formatCategoryName(category,parent);
     return new MapContainer("success",categoryService.insertChildren(category, parent));
   }
 
+  private void formatCategoryName(Category category,String parent)
+  {
+    if(!StringUtils.isBlank(parent))
+    {
+      String prePath=StringUtils.addStrNotExist(parent, CategoryConstants.NAME_DELIMITER);
+      category.setName(prePath+category.getName());
+    }
+  }
+
   @ResponseBody
-  @RequestMapping(value = "/{categoryName}", method = RequestMethod.DELETE)
-  public Object remove(@PathVariable String categoryName){
-    categoryManager.remove(categoryName);
+  @RequestMapping(value = "/remove", method = RequestMethod.POST)
+  public Object remove(String category){
+    categoryManager.remove(category);
     return new MapContainer("success", true);
+  }
+  @ResponseBody
+  @RequestMapping(value = "/edit",method = RequestMethod.POST)
+  public Object edit(String oldCategory,String newCategory)
+  {
+    if(oldCategory==null||newCategory==null||newCategory.trim().equals(""))
+      return new MapContainer("success",false);
+    categoryManager.edit(oldCategory,newCategory);
+    return new MapContainer("success",true);
   }
 
 }

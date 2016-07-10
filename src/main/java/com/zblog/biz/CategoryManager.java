@@ -45,6 +45,17 @@ public class CategoryManager{
     postService.updateCategory(all, optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
     categoryService.remove(category);
   }
+  public void edit(String oldCategory,String newCategory)
+  {
+    Category category=categoryService.loadByName(oldCategory);
+    List<Category> categoryList=categoryService.loadChildren(category);
+    categoryList.add(category);
+    for(Category tempCategory:categoryList)
+    {
+      tempCategory.setName(tempCategory.getName().replaceFirst(oldCategory,newCategory));
+      categoryService.update(tempCategory);
+    }
+  }
 
   public List<MapContainer> listAsTree(){
     List<MapContainer> preOrder = categoryService.list();
@@ -53,6 +64,7 @@ public class CategoryManager{
 
     /* 根据一棵树的先序遍历集合还原成一颗树 */
     MapContainer root = preOrder.get(0).clone();
+    root.putIfAbsent("nodes",new ArrayList<MapContainer>(),true);
     for(int i = 1; i < preOrder.size(); i++){
       MapContainer current = preOrder.get(i).clone();
       int level = current.getAsInteger("level");
@@ -60,7 +72,6 @@ public class CategoryManager{
       MapContainer parent = getLastParentByLevel(root, level - 1);
       parent.putIfAbsent("nodes", new ArrayList<MapContainer>(),true).add(current);
     }
-
     return root.get("nodes");
   }
 

@@ -3,7 +3,6 @@
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.zblog.core.dal.mapper.CategoryMapper">
-
    <select id="list" resultType="MapContainer">  
       select id, name, level,visible from view_category
    </select>
@@ -40,9 +39,13 @@
    <update id="updateDeleteRightv">
      update category set rightv=rightv-#{length}  where rightv>#{rightv}
    </update>
+   <update id="update" parameterType="Category">
+      update category set name=#{name} where id=#{id}
+   </update>
 
    <delete id="deleteById">
 	 delete from category where id = #{id}
   </delete>
+
 	
 </mapper>

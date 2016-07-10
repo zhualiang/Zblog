@@ -8,5 +8,9 @@ public class CategoryConstants{
    * 顶级默认分类名称
    */
   public static final String ROOT = "Root";
+  /**
+   * 存储category名字时存储相对于ROOT的全路径，目录之间使用此分隔符隔开
+   */
+  public static final String NAME_DELIMITER="/";
 
 }

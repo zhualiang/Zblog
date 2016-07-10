@@ -53,4 +53,30 @@ public final class StringUtils{
     return isBlank(ifEmpty) ? defaults : ifEmpty;
   }
 
+  public static boolean hasSubStr(String str,String subStr)
+  {
+    if(isBlank(str))
+      return false;
+    return str.indexOf(subStr)!=-1;
+  }
+
+  public static String addStrNotExist(String destStr,String addStr)
+  {
+    if(isBlank(destStr)||destStr.endsWith(addStr))
+      return destStr;
+    else
+      return destStr+addStr;
+  }
+
+  public static String getLastDivisionStr(String destStr,String delimiter)
+  {
+    if(isBlank(destStr))
+      return destStr;
+    int index=destStr.lastIndexOf(delimiter);
+    if(index==-1)
+      return destStr;
+    else
+      return destStr.substring(index+delimiter.length());
+  }
+
 }

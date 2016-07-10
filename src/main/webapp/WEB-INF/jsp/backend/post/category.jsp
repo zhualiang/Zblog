@@ -28,7 +28,7 @@
                <button type="button" class="btn btn-default" onclick="zblog.category.remove();">
                  <span class="icon glyphicon glyphicon-minus" aria-hidden="true"></span>删除
                </button>
-               <button type="button" class="btn btn-default" onclick="zblog.category.edit();">
+               <button type="button" class="btn btn-default" onclick="zdialog.show('edit-box');">
                  <span class="icon glyphicon glyphicon-indent-left" aria-hidden="true"></span>修改
                </button>
              </div>
@@ -50,10 +50,25 @@
        <input class="form-control" type="text" id="newCategory" style="width: 230px;"  />
      </div>
      <div class="zfooter">
-       <button type="button" class="btn btn-default" onclick="zblog.hide('insert-box');">取消</button>
-        <button type="button" class="btn btn-primary" onclick="zblog.category.insert();">确定</button>
+         <button type="button" class="btn btn-default" onclick="zdialog.hide('insert-box');">取消</button>
+         <button type="button" class="btn btn-primary" onclick="zblog.category.insert();">确定</button>
      </div>
    </div>
+
+  <div id="edit-box" class="zdialog">
+      <div class="zheader">
+          <h3 class="title">修改分类</h3>
+          <a class="toclose" title="关闭" href="#" onclick="zdialog.hide('edit-box');">关闭</a>
+      </div>
+      <div class="zcontent clearfix">
+          <label for="name" style="float: left;line-height: 32px;margin-right: 15px;">新分类名称:</label>
+          <input class="form-control" type="text" id="editCategory" style="width: 230px;"  />
+      </div>
+      <div class="zfooter">
+          <button type="button" class="btn btn-default" onclick="zdialog.hide('edit-box');">取消</button>
+          <button type="button" class="btn btn-primary" onclick="zblog.category.edit();">确定</button>
+      </div>
+  </div>
   
   <script type="text/javascript" src="${g.domain}/resource/bootstrap-tree/bootstrap-treeview.min.js"></script>
   <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.category.js"></script>

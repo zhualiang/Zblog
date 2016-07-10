@@ -18,8 +18,6 @@ import com.zblog.core.util.StringUtils;
 public class CategoryService extends BaseService{
   @Autowired
   private CategoryMapper categoryMapper;
-  @Autowired
-  private PostMapper postMapper;
 
   @Transactional
   public boolean insertChildren(Category category, String parentName){
