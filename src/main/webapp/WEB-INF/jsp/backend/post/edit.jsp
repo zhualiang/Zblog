@@ -54,7 +54,7 @@
              <div class="panel-heading">发布</div>
              <div class="panel-body">
                <div class="form-group">
-                 <label for="categoty">分类</label>
+                 <label for="category">分类</label>
                  <select class="form-control" id="category">
                    <c:forEach items="${categorys}" var="category" begin="1">
                      <option value="${category.id}" ${post.category.id==category.id?'selected':''}>
