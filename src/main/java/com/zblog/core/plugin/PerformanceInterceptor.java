@@ -3,6 +3,7 @@ package com.zblog.core.plugin;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -69,6 +70,7 @@ public class PerformanceInterceptor implements Interceptor{
   }
 
   private String getSql(BoundSql boundSql, Object parameterObject, Configuration configuration){
+
     String sql = boundSql.getSql().replaceAll("[\\s]+", " ");
     List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
     TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
@@ -108,7 +110,7 @@ public class PerformanceInterceptor implements Interceptor{
       }
     }
 
-    return sql.replaceFirst("\\?", result);
+    return sql.replaceFirst("\\?", Matcher.quoteReplacement(result));
   }
 
 }
