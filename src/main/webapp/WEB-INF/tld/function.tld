@@ -6,7 +6,7 @@
   <description>common function</description>
   <display-name>fns</display-name>
   <tlib-version>1.0</tlib-version>
-  <short-name>common function</short-name>
+  <short-name>function</short-name>
   <uri>/WEB-INF/tld/function.tld</uri>
   <function>
     <name>cookieValue</name>

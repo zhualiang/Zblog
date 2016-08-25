@@ -1,23 +1,19 @@
 package com.zblog.core.tag;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
-
 import com.zblog.core.plugin.PageModel;
+import java.io.IOException;
 
 public class LastTag extends AbstartTagSupport{
+
   private static final long serialVersionUID = 1L;
 
   @Override
-  public int doStartTag() throws JspException{
+  protected void handleTag() throws JspException, IOException {
     PageModel<?> model = getPagination().getModel();
-
-    if(model.getPageIndex() > 1){
+    if(model.getTotalPage()!=model.getPageIndex()) {
       setPageAttribute(model.getTotalPage());
-      return TagSupport.EVAL_BODY_INCLUDE;
-    }else{
-      return TagSupport.SKIP_BODY;
+      getJspBody().invoke(null);
     }
   }
-
 }

@@ -76,7 +76,7 @@
               <li><a href="#">>></a></li> -->
              <page:page model="${page}" pageUrl="${request.requestURL}" showPage="9" boundary="2">
                <page:prev>
-                 <li><a href="${pageUrl}"><<</a></li>
+                 <li><a href="${pageUrl}"></a></li>
                </page:prev>
               <page:pager>
                 <c:choose>
@@ -92,7 +92,7 @@
                 </c:choose>
               </page:pager>
                <page:next>
-                 <li><a href="${pageUrl}">>></a></li>
+                 <li><a href="${pageUrl}"></a></li>
                </page:next>
              </page:page>
           </ul>

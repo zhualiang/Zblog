@@ -1,15 +1,20 @@
 package com.zblog.core.tag;
 
+import com.zblog.core.plugin.PageModel;
+
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
+import java.io.IOException;
 
 public class FirstTag extends AbstartTagSupport{
   private static final long serialVersionUID = 1L;
 
   @Override
-  public int doStartTag() throws JspException{
-    setPageAttribute(1);
-    return TagSupport.EVAL_BODY_INCLUDE;
+  protected void handleTag() throws JspException, IOException {
+    PageModel<?> model = getPagination().getModel();
+    if(model.getPageIndex()!=1)
+    {
+      setPageAttribute(1);
+      getJspBody().invoke(null);
+    }
   }
-
 }

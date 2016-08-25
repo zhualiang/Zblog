@@ -1,27 +1,29 @@
 package com.zblog.core.tag;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+import java.io.IOException;
 
-abstract class AbstartTagSupport extends TagSupport{
+abstract class AbstartTagSupport extends SimpleTagSupport{
   private static final long serialVersionUID = 1L;
 
   protected void setPageAttribute(int pageNumber){
-
-    pageContext.setAttribute("pageNumber", pageNumber);
-    pageContext.setAttribute("pageUrl", getPagination().getPageUrl() + pageNumber);
+    getJspContext().setAttribute("pageNumber", pageNumber);
+    getJspContext().setAttribute("pageUrl", getPagination().getPageUrl() + pageNumber);
   }
 
   protected void clearPageAttribute(){
-    pageContext.removeAttribute("pageNumber");
-    pageContext.removeAttribute("pageUrl");
+    getJspContext().removeAttribute("pageNumber");
+    getJspContext().removeAttribute("pageUrl");
   }
 
   @Override
-  public int doEndTag() throws JspException{
+  public void doTag() throws JspException, IOException {
+    handleTag();
     clearPageAttribute();
-    return super.doEndTag();
   }
+
+  protected abstract void handleTag()throws JspException, IOException;
   
   protected Pagination<?> getPagination(){
     return (Pagination<?>) findAncestorWithClass(this, Pagination.class);

@@ -1,63 +1,70 @@
 package com.zblog.core.tag;
 
+import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
-
 import com.zblog.core.plugin.PageModel;
+import java.io.IOException;
 
+/**
+ * pager显示效果（按所有页面展开后效果）:
+ * 开始 1~boundary页面 + "dot"属性页面 +start~end页面 + "dot"属性页面 + totalPage-boundary~totalPage页面
+ */
 public class Pager extends AbstartTagSupport{
   private static final long serialVersionUID = 1L;
 
   private int current, start, end;
 
-  @Override
-  public int doAfterBody() throws JspException{
-    Pagination<?> p = getPagination();
-    PageModel<?> model = p.getModel();
-
-    pageContext.removeAttribute("dot");
-    if(current <= p.getBoundary()){
-      setPageAttribute(current);
-
-      return current++ <= model.getTotalPage() ? TagSupport.EVAL_BODY_AGAIN : TagSupport.SKIP_BODY;
-    }
-    
-    if(current < start){
-      pageContext.setAttribute("dot", true);
-      clearPageAttribute();
-      current = start;
-      return TagSupport.EVAL_BODY_AGAIN;
-    }
-
-    if(current >= start && current <= end){
-      setPageAttribute(current);
-      current++;
-
-      return TagSupport.EVAL_BODY_AGAIN;
-    }
-
-    if(p.getBoundary() < 1)
-      return TagSupport.SKIP_BODY;
-
-    if(current > end && current < model.getTotalPage() - p.getBoundary() + 1){
-      pageContext.setAttribute("dot", true);
-      clearPageAttribute();
-      current = model.getTotalPage() - p.getBoundary() + 1;
-      return TagSupport.EVAL_BODY_AGAIN;
-    }
-
-    /* 此时totalPage - boundary<=current<=totalPage */
+  private void displayCurrentPage(JspContext jspContext)throws JspException, IOException
+  {
     setPageAttribute(current);
-    return current++ <= model.getTotalPage() ? TagSupport.EVAL_BODY_AGAIN : TagSupport.SKIP_BODY;
+    getJspBody().invoke(null);
+    jspContext.removeAttribute("dot");
+    clearPageAttribute();
   }
 
   @Override
-  public int doStartTag() throws JspException{
+  protected void handleTag() throws JspException, IOException {
+    //初始化值
     initStartEnd();
 
-    setPageAttribute(current);
-    current++;
-    return TagSupport.EVAL_BODY_INCLUDE;
+    Pagination<?> p = getPagination();
+    PageModel<?> model = p.getModel();
+    JspContext jspContext=getJspContext();
+
+    do {
+      displayCurrentPage(jspContext);
+      current++;
+      //将要显示的页面处于0与boundary范围内
+      if (current <= p.getBoundary()) {
+        continue;
+      }
+      //将要显示的页面超出boundary并且小于start值
+      if(current < start) {
+        jspContext.setAttribute("dot", true);
+        displayCurrentPage(jspContext);
+        current=start;
+      }
+      //显示页面处于start和end之间
+      if(current>=start && current<=end)
+      {
+        continue;
+      }
+      //end之后没有要显示的页面了
+      if(p.getBoundary()<1)
+      {
+        break;
+      }
+      //end之后存在要显示的页面，且该页面处于end与totalPage-boundary+1之间
+      if(current > end && current < model.getTotalPage() - p.getBoundary() + 1){
+        jspContext.setAttribute("dot", true);
+        displayCurrentPage(jspContext);
+        current = model.getTotalPage() - p.getBoundary() + 1;
+      }
+      //后面大于totalPage-boundary全部需要显示，这里不做特殊处理，由循环完成显示
+
+    }while (current<=model.getTotalPage());
+
+
   }
 
   private void initStartEnd(){

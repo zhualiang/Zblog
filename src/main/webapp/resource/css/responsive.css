@@ -44,7 +44,7 @@ border-radius:0;background-image:url(../img/return_top1.gif);background-color: #
 @media screen and (max-width:480px) {
   .meta{width: 0;display: none;}
   .post{width: 100%;}
-  #comment_header{margin-left:0};
+  #comment_header{margin-left:0;}
   
   #previous_next_post{display: none;}
 }

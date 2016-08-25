@@ -9,7 +9,7 @@
   <tag>
     <name>page</name>
     <tag-class>com.zblog.core.tag.Pagination</tag-class>
-    <body-content>JSP</body-content>
+    <body-content>scriptless</body-content>
     <attribute>
       <name>pageUrl</name>
       <required>true</required>
@@ -35,26 +35,26 @@
    <tag>
      <name>first</name>
      <tag-class>com.zblog.core.tag.FirstTag</tag-class>
-     <body-content>JSP</body-content>
+     <body-content>scriptless</body-content>
    </tag>
    <tag>
      <name>prev</name>
      <tag-class>com.zblog.core.tag.PrevTag</tag-class>
-     <body-content>JSP</body-content>
+     <body-content>scriptless</body-content>
    </tag>
    <tag>
      <name>pager</name>
      <tag-class>com.zblog.core.tag.Pager</tag-class>
-     <body-content>JSP</body-content>
+     <body-content>scriptless</body-content>
    </tag>
    <tag>
      <name>next</name>
      <tag-class>com.zblog.core.tag.NextTag</tag-class>
-     <body-content>JSP</body-content>
+     <body-content>scriptless</body-content>
    </tag>
    <tag>
      <name>last</name>
      <tag-class>com.zblog.core.tag.LastTag</tag-class>
-     <body-content>JSP</body-content>
+     <body-content>scriptless</body-content>
    </tag>
 </taglib>
