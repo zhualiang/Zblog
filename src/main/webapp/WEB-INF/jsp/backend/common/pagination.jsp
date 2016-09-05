@@ -1,7 +1,7 @@
 <%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <ul class="pagination">
-  <page:page model="${page}" pageUrl="" showPage="8">
+  <page:page model="${page}" pageUrl="" showPage="9">
     <page:prev>
        <li><a href="${pageUrl}"><span aria-hidden="true">&laquo;</span></a></li>
     </page:prev>
