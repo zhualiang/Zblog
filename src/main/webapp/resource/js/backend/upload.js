@@ -10,16 +10,16 @@ zblog.upload.uploader=WebUploader.create({
   accept:{
 	title: '图片文件',
 	extensions: 'gif,jpg,jpeg,bmp,png',
-	mimeTypes: 'image/*'
+	mimeTypes: 'image/gif,image/jpg,image/jpeg,image/bmp,image/png'
   },
-  swf:'../../webuploader-0.1.5/js/Uploader.swf',
+  swf:'resource/webuploader-0.1.5/js/Uploader.swf',
   disableGlobalDnd: true,
   chunked: true,
   server: '.',
   fileVal: 'file',
   fileNumLimit: 300,
-  fileSizeLimit: 5 * 1024 * 1024,    // 200 M
-  fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
+  fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+  fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
 });
 
 zblog.upload.upload=function(){
@@ -39,7 +39,7 @@ zblog.upload.addFile=function(file){
 	 zblog.upload.fileSize-=file.size;
 	 zblog.upload.uploader.removeFile(file);
   });
-  
+
   $("#uploader .upload-list").append(uploadItem);
   zblog.upload.showInfo();
 };
@@ -66,7 +66,7 @@ zblog.upload.uploader.onFileQueued=function(file){
      id: "#append-picker",
      innerHTML: '继续添加'
   });
-  
+
   $("#uploader .placeholder").hide();
   $("#status-bar").show();
 };
